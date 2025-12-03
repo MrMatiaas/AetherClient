@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft Launcher - No Premium</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <h1 class="title">⛏️ Minecraft Launcher</h1>
+          <p class="subtitle">Modo Offline - No Premium</p>
+        </div>
+        <div class="header-right">
+          <button id="toggle-logs" class="btn-icon" title="Ver logs">
+            📋
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="content">
+      <!-- Panel principal -->
+      <div class="main-panel">
+        <!-- Vista previa del juego -->
+        <div class="game-preview">
+          <div class="preview-image">
+            <div class="preview-content">
+              <div class="game-icon">🎮</div>
+              <h2 id="version-display">Minecraft 1.20.1</h2>
+              <p class="mode-badge">🔓 Modo Offline</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Información del perfil -->
+        <div class="profile-section">
+          <div class="profile-avatar">
+            <div class="avatar">👤</div>
+          </div>
+          <div class="profile-input">
+            <input type="text" id="username" maxlength="16" placeholder="Nombre de usuario">
+          </div>
+        </div>
+
+        <!-- Selector de versiones con pestañas -->
+        <div class="version-selector">
+          <div class="tabs">
+            <button class="tab active" data-tab="installed">
+              📦 Instaladas (<span id="installed-count">0</span>)
+            </button>
+            <button class="tab" data-tab="available">
+              ☁️ Disponibles (<span id="available-count">0</span>)
+            </button>
+          </div>
+
+          <div class="tab-content active" id="installed-tab">
+            <div class="version-groups">
+              <!-- Vanilla -->
+              <div class="version-group">
+                <div class="group-header">
+                  <span class="group-icon">🟩</span>
+                  <span class="group-title">Vanilla</span>
+                  <span class="group-count" id="vanilla-count">0</span>
+                </div>
+                <select id="vanilla-versions" class="version-list" size="3">
+                  <option disabled>No hay versiones instaladas</option>
+                </select>
+              </div>
+
+              <!-- Forge -->
+              <div class="version-group">
+                <div class="group-header">
+                  <span class="group-icon">🔨</span>
+                  <span class="group-title">Forge</span>
+                  <span class="group-count" id="forge-count">0</span>
+                </div>
+                <select id="forge-versions" class="version-list" size="3">
+                  <option disabled>No hay versiones instaladas</option>
+                </select>
+              </div>
+
+              <!-- Fabric -->
+              <div class="version-group">
+                <div class="group-header">
+                  <span class="group-icon">🧵</span>
+                  <span class="group-title">Fabric</span>
+                  <span class="group-count" id="fabric-count">0</span>
+                </div>
+                <select id="fabric-versions" class="version-list" size="3">
+                  <option disabled>No hay versiones instaladas</option>
+                </select>
+              </div>
+
+              <!-- Optifine -->
+              <div class="version-group">
+                <div class="group-header">
+                  <span class="group-icon">⚡</span>
+                  <span class="group-title">Optifine</span>
+                  <span class="group-count" id="optifine-count">0</span>
+                </div>
+                <select id="optifine-versions" class="version-list" size="3">
+                  <option disabled>No hay versiones instaladas</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-content" id="available-tab">
+            <div class="version-download">
+              <p class="download-info">💡 Selecciona una versión para descargar</p>
+              <select id="available-versions" class="version-list" size="10">
+                <option disabled>Cargando versiones...</option>
+              </select>
+              <button id="refresh-versions" class="btn-secondary">🔄 Actualizar lista</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Configuración de memoria -->
+        <div class="memory-config">
+          <label>💾 Memoria RAM: <span id="memory-value">2048 MB</span></label>
+          <input type="range" id="memory" min="512" max="8192" step="512" value="2048">
+          <div class="range-labels">
+            <span>512 MB</span>
+            <span>8 GB</span>
+          </div>
+        </div>
+
+        <!-- Botón de jugar -->
+        <button id="play-btn" class="play-button">
+          <span class="play-icon">▶</span>
+          <span id="play-text">JUGAR</span>
+        </button>
+
+        <!-- Progreso de descarga -->
+        <div id="download-progress" class="download-progress hidden">
+          <div class="progress-info">
+            <span id="progress-text">Descargando archivos...</span>
+            <span id="progress-percent">0%</span>
+          </div>
+          <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel de logs (oculto por defecto) -->
+      <div id="logs-panel" class="logs-panel hidden">
+        <div class="logs-header">
+          <span>📋 Registro de Actividad</span>
+          <div class="logs-actions">
+            <button id="clear-logs" class="btn-icon-small">🗑️</button>
+            <button id="close-logs" class="btn-icon-small">✖️</button>
+          </div>
+        </div>
+        <div id="console-logs" class="console-logs">
+          <div class="log-entry">🎮 Launcher listo. Presiona JUGAR para comenzar.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel inferior con información -->
+    <footer class="footer">
+      <div class="footer-item">
+        <span class="footer-icon">☕</span>
+        <span id="java-status">Verificando Java...</span>
+      </div>
+      <div class="footer-item">
+        <span class="footer-icon">📁</span>
+        <span id="minecraft-path">Verificando carpeta...</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
